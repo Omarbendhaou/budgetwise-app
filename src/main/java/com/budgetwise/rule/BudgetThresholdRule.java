@@ -1,44 +1,56 @@
 package com.budgetwise.rule;
 
-import com.budgetwise.model.*;
+import com.budgetwise.model.Alert;
+import com.budgetwise.model.Budget;
+import com.budgetwise.model.Transaction;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.time.YearMonth;
 import java.util.List;
 
 /**
- * Fires alerts when monthly category spending enters WARNING or EXCEEDED states.
+ * Anomaly rule checking if category spending has exceeded 80% (Warning) or 100% (Critical) of budget.
  */
-public class BudgetThresholdRule extends AbstractSpendingRule {
+public class BudgetThresholdRule implements SpendingRule {
 
-    public BudgetThresholdRule() {
-        super("Budget Threshold Breach Rule");
+    @Override
+    public Alert evaluate(Transaction transaction, List<Transaction> allTransactions, Budget budget) {
+        if (budget == null || transaction == null || transaction.getType() != Transaction.Type.EXPENSE) {
+            return null;
+        }
+        if (transaction.getCategory() != budget.getCategory()) {
+            return null;
+        }
+        YearMonth currentMonth = budget.getMonth();
+        if (!YearMonth.from(transaction.getDate()).equals(currentMonth)) {
+            return null;
+        }
+
+        // Sum up all expenses in this category for this month
+        BigDecimal totalSpent = BigDecimal.ZERO;
+        for (Transaction tx : allTransactions) {
+            if (tx.getType() == Transaction.Type.EXPENSE && tx.getCategory() == budget.getCategory() &&
+                YearMonth.from(tx.getDate()).equals(currentMonth)) {
+                totalSpent = totalSpent.add(tx.getAmount());
+            }
+        }
+
+        double usage = budget.calculateUsagePercentage(totalSpent);
+        if (usage >= 100.0) {
+            return new Alert(getRuleName(),
+                String.format("Budget EXCEEDED for %s in %s! Spent $%.2f of $%.2f limit (%.1f%%)",
+                    budget.getCategory(), currentMonth, totalSpent, budget.getLimit(), usage),
+                Alert.Severity.CRITICAL);
+        } else if (usage >= 80.0) {
+            return new Alert(getRuleName(),
+                String.format("Budget WARNING for %s in %s: Spent $%.2f of $%.2f limit (%.1f%%)",
+                    budget.getCategory(), currentMonth, totalSpent, budget.getLimit(), usage),
+                Alert.Severity.WARNING);
+        }
+        return null;
     }
 
     @Override
-    protected List<Alert> doEvaluate(AnalysisContext context) {
-        List<Alert> alerts = new ArrayList<>();
-        for (BudgetStatus status : context.budgetStatuses()) {
-            if (status.state() == BudgetState.EXCEEDED) {
-                BigDecimal overspend = status.spent().subtract(status.budget().getLimit());
-                alerts.add(new Alert(
-                        AlertSeverity.CRITICAL,
-                        name(),
-                        String.format("%s budget exceeded by %s (Spent: %s, Limit: %s)",
-                                status.budget().getCategory().getName(), overspend, status.spent(), status.budget().getLimit()),
-                        status.spent(),
-                        String.format("Utilization reached %s%% exceeding 100%% limit", status.utilizationPercentage())
-                ));
-            } else if (status.state() == BudgetState.WARNING || status.state() == BudgetState.LIMIT_REACHED) {
-                alerts.add(new Alert(
-                        AlertSeverity.WARNING,
-                        name(),
-                        String.format("%s budget reached warning state (%s%% used)",
-                                status.budget().getCategory().getName(), status.utilizationPercentage()),
-                        status.spent(),
-                        "Spending reached or exceeded warning threshold"
-                ));
-            }
-        }
-        return alerts;
+    public String getRuleName() {
+        return "Budget Threshold Rule";
     }
 }

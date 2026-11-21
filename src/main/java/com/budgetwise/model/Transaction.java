@@ -1,53 +1,36 @@
 package com.budgetwise.model;
 
-import com.budgetwise.exception.ValidationException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Deeply immutable value object representing a financial transaction.
- * Monetary calculations strictly use BigDecimal with scale 2.
+ * Immutable financial transaction entity using scale-2 BigDecimal for monetary precision.
  */
 public final class Transaction {
+    public enum Type { INCOME, EXPENSE }
+
     private final String id;
     private final String accountId;
     private final LocalDate date;
     private final String description;
     private final BigDecimal amount;
-    private final TransactionType type;
+    private final Type type;
     private final Category category;
 
     public Transaction(String id, String accountId, LocalDate date, String description,
-                       BigDecimal amount, TransactionType type, Category category) {
-        if (id == null || id.trim().isEmpty()) {
-            throw new ValidationException("Transaction ID cannot be null or empty.");
-        }
-        if (accountId == null || accountId.trim().isEmpty()) {
-            throw new ValidationException("Account ID cannot be null or empty.");
-        }
-        if (date == null) {
-            throw new ValidationException("Transaction date cannot be null.");
-        }
-        if (description == null || description.trim().isEmpty()) {
-            throw new ValidationException("Transaction description cannot be null or empty.");
-        }
+                       BigDecimal amount, Type type, Category category) {
+        this.id = Objects.requireNonNull(id, "ID cannot be null");
+        this.accountId = Objects.requireNonNull(accountId, "Account ID cannot be null");
+        this.date = Objects.requireNonNull(date, "Date cannot be null");
+        this.description = Objects.requireNonNull(description, "Description cannot be null");
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new ValidationException("Transaction amount must be strictly positive.");
+            throw new IllegalArgumentException("Transaction amount must be strictly positive");
         }
-        if (amount.scale() > 2) {
-            throw new ValidationException("Transaction amount cannot have more than 2 decimal places.");
-        }
-        if (type == null) {
-            throw new ValidationException("Transaction type cannot be null.");
-        }
-        this.id = id.trim();
-        this.accountId = accountId.trim();
-        this.date = date;
-        this.description = description.trim();
-        this.amount = amount;
-        this.type = type;
-        this.category = category != null ? category : Category.UNCATEGORIZED;
+        this.amount = amount.setScale(2, RoundingMode.HALF_UP);
+        this.type = Objects.requireNonNull(type, "Type cannot be null");
+        this.category = Objects.requireNonNull(category, "Category cannot be null");
     }
 
     public String getId() { return id; }
@@ -55,28 +38,13 @@ public final class Transaction {
     public LocalDate getDate() { return date; }
     public String getDescription() { return description; }
     public BigDecimal getAmount() { return amount; }
-    public TransactionType getType() { return type; }
+    public Type getType() { return type; }
     public Category getCategory() { return category; }
-
-    public BigDecimal getSignedAmount() {
-        return amount.multiply(type.getMultiplier());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Transaction that)) return false;
-        return id.equalsIgnoreCase(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id.toLowerCase());
-    }
 
     @Override
     public String toString() {
-        return String.format("[%s] %s | %s | %s %s | Category: %s",
-                id, date, description, type, amount, category.getName());
+        String sign = (type == Type.INCOME) ? "+" : "-";
+        return String.format("%s | %-8s | %s$%8.2f | %-14s | %s",
+                date, id, sign, amount, category, description);
     }
 }

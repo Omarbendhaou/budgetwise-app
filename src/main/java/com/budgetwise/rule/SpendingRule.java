@@ -1,15 +1,14 @@
 package com.budgetwise.rule;
 
 import com.budgetwise.model.Alert;
-import com.budgetwise.model.AnalysisContext;
+import com.budgetwise.model.Budget;
+import com.budgetwise.model.Transaction;
 import java.util.List;
 
 /**
- * Contract for rules that evaluate spending patterns and produce explainable alerts.
+ * Rule interface for anomaly detection and spending policy checks.
  */
 public interface SpendingRule {
-    String name();
-    List<Alert> evaluate(AnalysisContext context);
-    boolean isEnabled();
-    void setEnabled(boolean enabled);
+    Alert evaluate(Transaction transaction, List<Transaction> allTransactions, Budget budget);
+    String getRuleName();
 }

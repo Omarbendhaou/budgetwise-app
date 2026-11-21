@@ -1,23 +1,17 @@
 package com.budgetwise.model;
 
-import com.budgetwise.exception.ValidationException;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
- * Credit card / overdraft account: allows withdrawals beyond zero up to a configured credit limit.
+ * Credit card account allowing spending into the negative up to a configured credit limit.
  */
 public class CreditAccount extends Account {
     private final BigDecimal creditLimit;
 
-    public CreditAccount(String id, String name, BigDecimal openingBalance, BigDecimal creditLimit) {
-        super(id, name, openingBalance);
-        if (creditLimit == null || creditLimit.compareTo(BigDecimal.ZERO) < 0) {
-            throw new ValidationException("Credit limit must be non-negative.");
-        }
-        if (creditLimit.scale() > 2) {
-            throw new ValidationException("Credit limit cannot have more than 2 decimal places.");
-        }
-        this.creditLimit = creditLimit;
+    public CreditAccount(String id, String name, BigDecimal balance, BigDecimal creditLimit) {
+        super(id, name, balance);
+        this.creditLimit = Objects.requireNonNull(creditLimit, "Credit limit cannot be null");
     }
 
     public BigDecimal getCreditLimit() {
@@ -25,21 +19,22 @@ public class CreditAccount extends Account {
     }
 
     @Override
-    public boolean canWithdraw(BigDecimal amount, BigDecimal currentBalance) {
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new ValidationException("Withdrawal amount must be strictly positive.");
-        }
-        BigDecimal totalAvailable = currentBalance.add(creditLimit);
-        return totalAvailable.compareTo(amount) >= 0;
+    public boolean canWithdraw(BigDecimal amount) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) return false;
+        BigDecimal availableFunds = balance.add(creditLimit);
+        return availableFunds.compareTo(amount) >= 0;
     }
 
     @Override
-    public BigDecimal calculateAvailableFunds(BigDecimal currentBalance) {
-        return currentBalance.add(creditLimit);
+    public void withdraw(BigDecimal amount) {
+        if (!canWithdraw(amount)) {
+            throw new IllegalStateException("Credit limit exceeded: withdrawal of $" + amount + " exceeds limit of $" + creditLimit);
+        }
+        this.balance = this.balance.subtract(amount);
     }
 
     @Override
     public String getAccountType() {
-        return "CREDIT";
+        return "Credit";
     }
 }

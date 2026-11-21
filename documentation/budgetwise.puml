@@ -1,0 +1,112 @@
+@startuml budgetwise_clean
+skinparam classAttributeIconSize false
+skinparam roundcorner 8
+skinparam linetype ortho
+
+package "com.budgetwise.model" {
+    abstract class Account {
+        - String id
+        - String name
+        # BigDecimal balance
+        + deposit(BigDecimal amount) : void
+        + {abstract} canWithdraw(BigDecimal amount) : boolean
+        + {abstract} withdraw(BigDecimal amount) : void
+        + {abstract} getAccountType() : String
+    }
+    class CheckingAccount extends Account {
+        + canWithdraw(amount) : boolean
+        + withdraw(amount) : void
+        + getAccountType() : String
+    }
+    class CreditAccount extends Account {
+        - BigDecimal creditLimit
+        + canWithdraw(amount) : boolean
+        + withdraw(amount) : void
+        + getCreditLimit() : BigDecimal
+        + getAccountType() : String
+    }
+    enum Category {
+        FOOD
+        HOUSING
+        TRANSPORTATION
+        ENTERTAINMENT
+        HEALTHCARE
+        UTILITIES
+        OTHER
+    }
+    class Transaction {
+        - String id
+        - String accountId
+        - LocalDate date
+        - String description
+        - BigDecimal amount
+        - Type type
+        - Category category
+    }
+    class Budget {
+        - Category category
+        - YearMonth month
+        - BigDecimal limit
+        + calculateUsagePercentage(BigDecimal spent) : double
+    }
+    class FinancialGoal {
+        - String name
+        - BigDecimal targetAmount
+        - BigDecimal savedAmount
+        - YearMonth targetMonth
+        + addSavings(amount) : void
+        + calculateMonthlySavingsPace(currentMonth) : BigDecimal
+    }
+    class Alert {
+        - String ruleName
+        - String message
+        - Severity severity
+    }
+}
+
+package "com.budgetwise.strategy" {
+    interface SpendingStrategy {
+        + calculateSpending(month, category, transactions) : BigDecimal
+        + getStrategyName() : String
+    }
+    class MonthlyTotalStrategy implements SpendingStrategy
+    class RollingAverageStrategy implements SpendingStrategy
+}
+
+package "com.budgetwise.rule" {
+    interface SpendingRule {
+        + evaluate(transaction, allTransactions, budget) : Alert
+        + getRuleName() : String
+    }
+    class BudgetThresholdRule implements SpendingRule
+    class LargePurchaseRule implements SpendingRule
+}
+
+package "com.budgetwise.service" {
+    class SpendingAnalyzer {
+        - SpendingStrategy strategy
+        - List<SpendingRule> rules
+        + setStrategy(SpendingStrategy strategy) : void
+        + calculateSpending(month, category, transactions) : BigDecimal
+        + runAnalysis(month, transactions, budgets) : List<Alert>
+    }
+    class SavingsAdvisor {
+        + generateAdvice(goal, month, transactions) : List<String>
+    }
+}
+
+package "com.budgetwise.storage" {
+    class CsvStorage {
+        + {static} loadTransactions(File file) : List<Transaction>
+        + {static} saveTransactions(File file, List<Transaction> list) : void
+    }
+}
+
+Transaction --> Category : classified by
+Budget --> Category : targets
+SpendingAnalyzer --> Transaction : queries
+SpendingAnalyzer --> SpendingStrategy : uses strategy
+SpendingAnalyzer --> SpendingRule : evaluates rules
+SpendingAnalyzer --> SavingsAdvisor : triggers advice
+SavingsAdvisor --> FinancialGoal : evaluates goal
+@enduml
