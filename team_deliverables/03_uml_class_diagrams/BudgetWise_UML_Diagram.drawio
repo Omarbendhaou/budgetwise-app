@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-11-21T12:00:00.000Z" agent="BudgetWise" version="24.0.0" type="device">
+  <diagram id="budgetwise-student-diagram" name="BudgetWise Clean UML Class Diagram">
+    <mxGraphModel dx="1750" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1750" pageHeight="1100" background="#FFFFFF">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="acc" value="Account (Abstract)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#8A43A8;fontColor=#ffffff;strokeColor=#8A43A8;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="380" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="acc_fields" value="+ String id&#xa;+ String name&#xa;# BigDecimal balance" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="acc">
+          <mxGeometry y="28" width="380" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="acc_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#8A43A8;html=1;" vertex="1" parent="acc">
+          <mxGeometry y="88" width="380" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="acc_methods" value="+ deposit(amount : BigDecimal) : void&#xa;+ {abstract} canWithdraw(amt) : boolean&#xa;+ {abstract} withdraw(amt) : void&#xa;+ {abstract} getAccountType() : String" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="acc">
+          <mxGeometry y="96" width="380" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="chk" value="CheckingAccount" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#8A43A8;fontColor=#ffffff;strokeColor=#8A43A8;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="280" width="180" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="chk_fields" value="/* strict zero floor */" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="chk">
+          <mxGeometry y="28" width="180" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="chk_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#8A43A8;html=1;" vertex="1" parent="chk">
+          <mxGeometry y="64" width="180" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="chk_methods" value="+ canWithdraw(amt) : boolean&#xa;+ withdraw(amt) : void&#xa;+ getAccountType() : String" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="chk">
+          <mxGeometry y="72" width="180" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="crd" value="CreditAccount" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#8A43A8;fontColor=#ffffff;strokeColor=#8A43A8;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="280" width="180" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="crd_fields" value="- BigDecimal creditLimit" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="crd">
+          <mxGeometry y="28" width="180" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="crd_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#8A43A8;html=1;" vertex="1" parent="crd">
+          <mxGeometry y="64" width="180" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="crd_methods" value="+ canWithdraw(amt) : boolean&#xa;+ withdraw(amt) : void&#xa;+ getCreditLimit() : BigDecimal&#xa;+ getAccountType() : String" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="crd">
+          <mxGeometry y="72" width="180" height="84" as="geometry"/>
+        </mxCell>
+        <mxCell id="csv" value="CsvStorage (Utility)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#546E7A;fontColor=#ffffff;strokeColor=#546E7A;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="520" width="380" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="csv_fields" value="/* reads &amp; writes CSV data */" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="csv">
+          <mxGeometry y="28" width="380" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="csv_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#546E7A;html=1;" vertex="1" parent="csv">
+          <mxGeometry y="62" width="380" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="csv_methods" value="+ {static} loadTransactions(file) : List&lt;Transaction&gt;&#xa;+ {static} saveTransactions(file, list) : void" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="csv">
+          <mxGeometry y="70" width="380" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="cat" value="Category (Enum)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#16A085;fontColor=#ffffff;strokeColor=#16A085;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="50" width="340" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="cat_fields" value="FOOD, HOUSING, TRANSPORTATION&#xa;ENTERTAINMENT, HEALTHCARE&#xa;UTILITIES, OTHER" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="cat">
+          <mxGeometry y="28" width="340" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="cat_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#16A085;html=1;" vertex="1" parent="cat">
+          <mxGeometry y="96" width="340" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="cat_methods" value="/* standard enum literals */" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="cat">
+          <mxGeometry y="104" width="340" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="tx" value="Transaction (Immutable)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#2980B9;fontColor=#ffffff;strokeColor=#2980B9;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="250" width="340" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="tx_fields" value="- String id, accountId&#xa;- LocalDate date&#xa;- String description&#xa;- BigDecimal amount [scale 2]&#xa;- Type type (INCOME / EXPENSE)&#xa;- Category category" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="tx">
+          <mxGeometry y="28" width="340" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="tx_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#2980B9;html=1;" vertex="1" parent="tx">
+          <mxGeometry y="138" width="340" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="tx_methods" value="+ getId() : String&#xa;+ getAmount() : BigDecimal&#xa;+ getType() : Type&#xa;+ getCategory() : Category" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="tx">
+          <mxGeometry y="146" width="340" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="bdg" value="Budget (Entity)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#2980B9;fontColor=#ffffff;strokeColor=#2980B9;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="520" width="340" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="bdg_fields" value="- Category category&#xa;- YearMonth month&#xa;- BigDecimal limit [scale 2]" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="bdg">
+          <mxGeometry y="28" width="340" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bdg_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#2980B9;html=1;" vertex="1" parent="bdg">
+          <mxGeometry y="88" width="340" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="bdg_methods" value="+ calculateUsagePercentage(spent) : double&#xa;+ getCategory() : Category&#xa;+ getLimit() : BigDecimal" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="bdg">
+          <mxGeometry y="96" width="340" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ana" value="SpendingAnalyzer (Controller)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#2980B9;fontColor=#ffffff;strokeColor=#2980B9;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="250" width="360" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="ana_fields" value="- SpendingStrategy strategy&#xa;- List&lt;SpendingRule&gt; rules" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="ana">
+          <mxGeometry y="28" width="360" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="ana_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#2980B9;html=1;" vertex="1" parent="ana">
+          <mxGeometry y="74" width="360" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="ana_methods" value="+ setStrategy(s : SpendingStrategy) : void&#xa;+ addRule(rule : SpendingRule) : void&#xa;+ calculateSpending(m, cat, txList) : BigDecimal&#xa;+ runAnalysis(m, txList, budgets) : List&lt;Alert&gt;" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="ana">
+          <mxGeometry y="82" width="360" height="112" as="geometry"/>
+        </mxCell>
+        <mxCell id="adv" value="SavingsAdvisor (AI Decision Engine)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#16A085;fontColor=#ffffff;strokeColor=#16A085;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="520" width="360" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="adv_fields" value="/* analyzes discretionary spending */" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="adv">
+          <mxGeometry y="28" width="360" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="adv_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#16A085;html=1;" vertex="1" parent="adv">
+          <mxGeometry y="62" width="360" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="adv_methods" value="+ generateAdvice(goal, month, txList) : List&lt;String&gt;&#xa;/* pace: (target-saved)/monthsRemaining */&#xa;/* suggests 25% cut on top category */" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="adv">
+          <mxGeometry y="70" width="360" height="84" as="geometry"/>
+        </mxCell>
+        <mxCell id="str" value="SpendingStrategy (Interface)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#27AE60;fontColor=#ffffff;strokeColor=#27AE60;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="50" width="360" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="str_fields" value="/* Strategy Design Pattern */" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="str">
+          <mxGeometry y="28" width="360" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="str_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#27AE60;html=1;" vertex="1" parent="str">
+          <mxGeometry y="62" width="360" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="str_methods" value="+ calculateSpending(month, cat, txList) : BigDecimal&#xa;+ MonthlyTotalStrategy : calendar month&#xa;+ RollingAverageStrategy : 3-mo baseline" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="str">
+          <mxGeometry y="70" width="360" height="74" as="geometry"/>
+        </mxCell>
+        <mxCell id="rul" value="SpendingRule (Interface)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#D35400;fontColor=#ffffff;strokeColor=#D35400;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="250" width="360" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="rul_fields" value="/* Anomaly Detection Rule Engine */" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="rul">
+          <mxGeometry y="28" width="360" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="rul_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#D35400;html=1;" vertex="1" parent="rul">
+          <mxGeometry y="62" width="360" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="rul_methods" value="+ evaluate(tx, allTxs, budget) : Alert&#xa;+ BudgetThresholdRule : &gt;= 80% / 100%&#xa;+ LargePurchaseRule : &gt; $150.00" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="rul">
+          <mxGeometry y="70" width="360" height="94" as="geometry"/>
+        </mxCell>
+        <mxCell id="gol" value="FinancialGoal" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#8A43A8;fontColor=#ffffff;strokeColor=#8A43A8;rounded=0;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="520" width="360" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="gol_fields" value="- String name&#xa;- BigDecimal targetAmount&#xa;- BigDecimal savedAmount&#xa;- YearMonth targetMonth" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=4;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="gol">
+          <mxGeometry y="28" width="360" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="gol_line" value="" style="line;strokeWidth=1.2;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=0;spacingRight=0;rotatable=0;strokeColor=#8A43A8;html=1;" vertex="1" parent="gol">
+          <mxGeometry y="104" width="360" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="gol_methods" value="+ addSavings(amount) : void&#xa;+ getRemainingAmount() : BigDecimal&#xa;+ calculateMonthlySavingsPace(currentMonth) : BigDecimal&#xa;+ getProgressPercentage() : double" style="text;strokeColor=none;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=6;spacingBottom=6;overflow=visible;whiteSpace=nowrap;html=1;fontSize=11;fontColor=#2C3E50;fontFamily=monospace;" vertex="1" parent="gol">
+          <mxGeometry y="112" width="360" height="62" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_chk_acc" value="extends" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#8A43A8;strokeWidth=2;fontColor=#8A43A8;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="chk" target="acc">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_crd_acc" value="extends" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#8A43A8;strokeWidth=2;fontColor=#8A43A8;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="crd" target="acc">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_tx_cat" value="classified by" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#16A085;strokeWidth=2;fontColor=#16A085;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="tx" target="cat">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_bdg_cat" value="targets" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2980B9;strokeWidth=2;fontColor=#2980B9;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="bdg" target="tx">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_ana_tx" value="queries" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2980B9;strokeWidth=2;fontColor=#2980B9;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ana" target="tx">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_ana_str" value="uses strategy" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#27AE60;strokeWidth=2;fontColor=#27AE60;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.2;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ana" target="str">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1270" y="288"/>
+              <mxPoint x="1270" y="120"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_ana_rul" value="evaluates rules" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D35400;strokeWidth=2;fontColor=#D35400;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.6;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ana" target="rul">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_ana_adv" value="triggers advice" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#16A085;strokeWidth=2;fontColor=#16A085;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ana" target="adv">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_adv_gol" value="evaluates goal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#8A43A8;strokeWidth=2;fontColor=#8A43A8;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="adv" target="gol">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

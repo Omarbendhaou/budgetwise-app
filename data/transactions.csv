@@ -1,0 +1,5 @@
+id,accountId,date,description,amount,type,category
+TX-001,CHK-101,2026-11-02,Monthly Salary,3200.00,INCOME,OTHER
+TX-002,CHK-101,2026-11-04,Supermarket Groceries,145.50,EXPENSE,FOOD
+TX-003,CRD-202,2026-11-08,Fine Dining Dinner,185.00,EXPENSE,FOOD
+TX-004,CHK-101,2026-11-10,Concert Tickets,120.00,EXPENSE,ENTERTAINMENT
